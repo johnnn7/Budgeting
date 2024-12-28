@@ -3,7 +3,7 @@ Very much beginner and version one of this project. With ability for take in a b
 
 VERSION 1.1:
 
-    Added the number of current categories from 3 to 5  
+    Added the number of current categories from 3 to 5.  
         "🍟 Food",
         "🔟 Tithe",
         "🚗 Transportation",

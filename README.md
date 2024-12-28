@@ -2,6 +2,14 @@ Very much beginner and version one of this project. With ability for take in a b
 
 
 VERSION 1.1:
+
+    Added the number of current categories from 3 to 5  
+        "🍟 Food",
+        "🔟 Tithe",
+        "🚗 Transportation",
+        "📚 Schooling",
+        "💩 Unnessesary"
+    
     Updated so users are able to set their own budget. this happens by first the user themself runing "python3 expense_tracker.py start" and they will be prompted to in their budget which will be saved as a str in a txt file now. 
     
     Then additionally, once the user runs "expense_tracker.py log" they will be able to log a new expense that will be subtracted from their budget in the backend.

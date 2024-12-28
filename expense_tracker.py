@@ -1,20 +1,55 @@
 from expense import Expense
 import calendar
 import datetime
+import sys
+import os
 
 def main():
+    
     expense_file_path = 'expenses.csv'
-    budget = 90
+    budget_file_path  = 'budget.txt'  # File to store the budget
+    args = sys.argv
+    
+    if len(args) == 2 and args[1] == 'log':
+        #user input
+        expense = get_user_expense()
+        print(expense)
+        #write their responses into a file
+        save_to_file(expense, expense_file_path)
 
-    #user input
-    expense = get_user_expense()
-    print(expense)
+    if len(args) == 2 and args[1] == 'start': #intended to be run when a new budget it set
+        budget = start(budget_file_path)
 
-    #write their responses into a file
-    save_to_file(expense, expense_file_path)
+    if len(args) == 2 and args[1] == 'summarize':
 
-    #read file and summarize it
-    summarize_expenses(expense_file_path, budget)
+        #read file and summarize it
+        budget = load_budget(budget_file_path)
+        if budget is None:
+            print("No budget set. Please run the program with 'start' to set a budget.")
+        else:
+            summarize_expenses(expense_file_path, budget)
+
+
+def start(budget_file_path):
+    # Get budget from the user
+    budget = int(input("What is your budget: "))
+
+    # Save the budget to the config file
+    with open(budget_file_path, 'w') as f:
+        f.write(str(budget))
+    print(f"Budget of ${budget} recorded.")
+    return budget
+
+
+def load_budget(budget_file_path):
+    # Check if the config file exists
+    if not os.path.exists(budget_file_path):
+        return None
+
+    # Read the budget from the file
+    with open(budget_file_path, 'r') as f:
+        budget = int(f.read().strip())
+    return budget
 
 
 def get_user_expense():
@@ -24,6 +59,8 @@ def get_user_expense():
     expense_category = [
         "🍟 Food",
         "🔟 Tithe",
+        "🚗 Transportation",
+        "📚 Schooling",
         "💩 Unnessesary"
     ]
 
@@ -42,7 +79,7 @@ def get_user_expense():
             print(" Invalid Category, please try again")
         
 def save_to_file(expense : Expense, expense_file_path):
-    print(f"🎯 Expense Saved")
+    print(f"🎯 Expense Saved to {expense_file_path}")
     with open(expense_file_path, 'a') as f:
         f.write(f"{expense.name}, {expense.amount}, {expense.category} \n")
 

@@ -1,6 +1,5 @@
 Very much beginner and version one of this project. With ability for take in a budget then give you a balance aft you log in your expenses.
 
-
 VERSION 1.1:
 
     Added the number of current categories from 3 to 5.  

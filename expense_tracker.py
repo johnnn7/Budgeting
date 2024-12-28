@@ -1,7 +1,6 @@
 from expense import Expense
 import calendar
 import datetime
-import sys
 
 def main():
     expense_file_path = 'expenses.csv'

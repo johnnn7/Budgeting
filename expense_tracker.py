@@ -10,17 +10,18 @@ def main():
     budget_file_path  = 'budget.txt'  # File to store the budget
     args = sys.argv
     
-    if len(args) == 2 and args[1] == 'log':
+    if len(args) == 2 and args[1] == 'log': #in order to log a new expense
         #user input
         expense = get_user_expense()
         print(expense)
+
         #write their responses into a file
         save_to_file(expense, expense_file_path)
 
     if len(args) == 2 and args[1] == 'start': #intended to be run when a new budget it set
         budget = start(budget_file_path)
 
-    if len(args) == 2 and args[1] == 'summarize':
+    if len(args) == 2 and args[1] == 'summarize': #run to get the summaries of you spending, to be run if you have set a budget
 
         #read file and summarize it
         budget = load_budget(budget_file_path)
@@ -34,7 +35,7 @@ def start(budget_file_path):
     # Get budget from the user
     budget = int(input("What is your budget: "))
 
-    # Save the budget to the config file
+    # Save the budget to the budget_file_path file
     with open(budget_file_path, 'w') as f:
         f.write(str(budget))
     print(f"Budget of ${budget} recorded.")
@@ -42,7 +43,7 @@ def start(budget_file_path):
 
 
 def load_budget(budget_file_path):
-    # Check if the config file exists
+    # Check if the budget_file_path file exists
     if not os.path.exists(budget_file_path):
         return None
 
@@ -66,10 +67,10 @@ def get_user_expense():
 
     while True:
         print("Select a Category: ")
-        for i, category_name in enumerate(expense_category):
-            print( f" {i + 1}. {category_name}")
+        for i, category_name in enumerate(expense_category): #lists out the categories numerically 
+            print( f" {i + 1}. {category_name}") #adds 1 because of zero-based indexing
         value_range = f"[1 - {len(expense_category)}]"
-        selected_index = int(input(f" Select a category number {value_range} : ")) - 1
+        selected_index = int(input(f" Select a category number {value_range} : ")) - 1 # minus 1 to the users's chosen number to match indexes
 
         if selected_index in range(len(expense_category)):
             selected_category = expense_category[selected_index]
@@ -104,6 +105,7 @@ def summarize_expenses(expense_file_path, budget):
             amount_by_category[key] += expense.amount
         else:
             amount_by_category[key] = expense.amount
+            
     for key, amount in amount_by_category.items():
         print(f"  {key}: ${amount:.2f}")
     total_spent = sum([x.amount for x in expenses])
